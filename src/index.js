@@ -96,12 +96,14 @@ trash.forEach((element) => {
   });
 });
 
+const remove = (element) => {
+  if (element.classList.contains('hide')) {
+    task.removerTask(element.value - 1);
+    todoList.removeChild(element.closest('li'));
+    task.updateTask();
+  }
+};
+
 clearAll.addEventListener('click', () => {
-  checkTask.forEach((element) => {
-    if (element.classList.contains('hide')) {
-      task.removerTask(element.value - 1);
-      todoList.removeChild(element.closest('li'));
-      task.updateTask();
-    }
-  });
+  [...checkTask].filter(remove);
 });
