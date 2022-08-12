@@ -29,19 +29,19 @@ const getTodo = () => {
 getTodo();
 
 const checkTask = document.querySelectorAll('.check-task');
-const checkTaskSpan = document.querySelectorAll('.task span');
+const checkTaskSpan = document.querySelectorAll('.description span');
 const description = document.querySelectorAll('.description');
 const descriptionInput = document.querySelectorAll('.description input');
 const checkTaskIcon = document.querySelectorAll('.task i');
 const addTaskInput = document.querySelector('.add-task input');
-// const clearAll = document.querySelector('.clear');
+const clearAll = document.querySelector('.clear');
 const trash = document.querySelectorAll('.bi-trash');
 
 checkTask.forEach((task) => {
   task.addEventListener('click', (e) => {
-    checkTaskSpan.item(e.target.value - 1).classList.toggle('line');
+    checkTaskSpan.item(e.target.value).classList.toggle('line');
     e.target.classList.toggle('hide');
-    checkTaskIcon.item(e.target.value - 1).classList.toggle('visible');
+    checkTaskIcon.item(e.target.value).classList.toggle('visible');
   });
 });
 
@@ -96,12 +96,12 @@ trash.forEach((element) => {
   });
 });
 
-// clearAll.addEventListener('click', () => {
-//   checkTask.forEach((element) => {
-//     if (element.classList.contains('hide')) {
-//       task.removerTask(element.value - 1);
-//       todoList.removeChild(element.closest('li'));
-//       task.updateTask();
-//     }
-//   });
-// });
+clearAll.addEventListener('click', () => {
+  checkTask.forEach((element) => {
+    if (element.classList.contains('hide')) {
+      task.removerTask(element.value - 1);
+      todoList.removeChild(element.closest('li'));
+      task.updateTask();
+    }
+  });
+});
