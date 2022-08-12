@@ -89,10 +89,10 @@ button.clear {
   cursor: pointer;
   transition: all 400ms ease;
 }
-.clear:focus{
-  background: rgb(27, 140, 252);
-  color:white;
 
+.clear:focus {
+  background: rgb(27, 140, 252);
+  color: white;
 }
 
 .task .bi-check {
@@ -106,6 +106,19 @@ button.clear {
 .task-edit .bi-trash {
   cursor: pointer;
 }
+
 .visible {
   visibility: visible;
+}
+
+.description {
+  cursor: pointer;
+}
+
+.description input {
+  display: none;
+  height: 100%;
+  z-index: 1;
+  border: none;
+  outline: none;
 }

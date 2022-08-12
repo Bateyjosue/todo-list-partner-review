@@ -12,8 +12,11 @@ const getTodo = () => {
         <label class="task">
           <i class="bi bi-check"></i>
           <input type="checkbox" id="" name="" value="${todo.index}" class="check-task">
-          <span class="${todo.index}">${todo.description}</span>
         </label>
+        <span class=" description">
+          <span class="${todo.index} | desc">${todo.description}</span>
+          <input type="text" name="" id="${todo.index}" value="${todo.description}" />
+        </span>
         <span class="task-edit">
           <i class="bi bi-three-dots-vertical"></i>
           <i class="bi bi-trash" id="${todo.index}"></i>
@@ -27,6 +30,8 @@ getTodo();
 
 const checkTask = document.querySelectorAll('.check-task');
 const checkTaskSpan = document.querySelectorAll('.task span');
+const description = document.querySelectorAll('.description');
+const descriptionInput = document.querySelectorAll('.description input');
 const checkTaskIcon = document.querySelectorAll('.task i');
 const addTaskInput = document.querySelector('.add-task input');
 // const clearAll = document.querySelector('.clear');
@@ -37,6 +42,25 @@ checkTask.forEach((task) => {
     checkTaskSpan.item(e.target.value - 1).classList.toggle('line');
     e.target.classList.toggle('hide');
     checkTaskIcon.item(e.target.value - 1).classList.toggle('visible');
+  });
+});
+
+description.forEach((el) => {
+  el.addEventListener('click', (e) => {
+    if (e.target.classList.contains('desc')) {
+      e.target.style.display = 'none';
+      e.target.nextElementSibling.style.display = 'block';
+    }
+  });
+});
+
+descriptionInput.forEach((el) => {
+  el.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      task.editTask(e.target.id, e.target.value);
+      window.location.reload();
+    }
   });
 });
 

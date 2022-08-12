@@ -21,5 +21,11 @@ export default class Task {
     }));
   };
 
+  editTask = (index, value) => {
+    if (index === -1) return;
+    this.tasks[index].description = value;
+    this.updateTask();
+  }
+
   updateTask = () => localStorage.setItem('toDoList', JSON.stringify(this.tasks));
 }
