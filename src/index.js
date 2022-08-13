@@ -1,7 +1,9 @@
 import './style.css';
 import Task from './task.js';
+import Status from './status.js';
 
 const task = new Task();
+const status = new Status();
 
 const todoList = document.querySelector('.todo-list');
 
@@ -10,7 +12,6 @@ const getTodo = () => {
     todoList.innerHTML += `
       <li>
         <label class="task">
-          <i class="bi bi-check"></i>
           <input type="checkbox" id="" name="" value="${todo.index}" class="check-task">
         </label>
         <span class=" description">
@@ -27,21 +28,43 @@ const getTodo = () => {
 };
 
 getTodo();
-
 const checkTask = document.querySelectorAll('.check-task');
 const checkTaskSpan = document.querySelectorAll('.description span');
 const description = document.querySelectorAll('.description');
 const descriptionInput = document.querySelectorAll('.description input');
-const checkTaskIcon = document.querySelectorAll('.task i');
 const addTaskInput = document.querySelector('.add-task input');
 const clearAll = document.querySelector('.clear');
 const trash = document.querySelectorAll('.bi-trash');
+const edit = document.querySelectorAll('.bi-three-dots-vertical');
+
+[...edit].forEach((element, index) => {
+  element.addEventListener('click', (e) => {
+    e.target.parentNode.parentNode.style.backgroundColor = '#d9b16660';
+    e.target.style.display = 'none';
+    trash.item(index).style.display = 'block';
+  });
+});
+
+task.tasks.forEach((task, index) => {
+  if (task.completed) {
+    checkTask.item(index).checked = true;
+    checkTaskSpan.item(index).classList.add('line');
+  }
+});
 
 checkTask.forEach((task) => {
   task.addEventListener('click', (e) => {
-    checkTaskSpan.item(e.target.value).classList.toggle('line');
-    e.target.classList.toggle('hide');
-    checkTaskIcon.item(e.target.value).classList.toggle('visible');
+    if (e.target.checked) {
+      status.updateStatus(e.target.value, false);
+      e.target.checked = true;
+      checkTaskSpan.item(e.target.value).classList.remove('line');
+      window.location.reload();
+    } else {
+      status.updateStatus(e.target.value, true);
+      e.target.checked = false;
+      checkTaskSpan.item(e.target.value).classList.add('line');
+      window.location.reload();
+    }
   });
 });
 
@@ -72,7 +95,6 @@ addTaskInput.addEventListener('keypress', (e) => {
     todoList.innerHTML += `
       <li>
         <label class="task">
-          <i class="bi bi-check"></i>
           <input type="checkbox" id="" name="" value="" class="check-task">
           <span class="">${e.target.value}</span>
         </label>
@@ -83,6 +105,7 @@ addTaskInput.addEventListener('keypress', (e) => {
       </li>
     `;
     addTaskInput.value = '';
+    window.location.reload();
   }
 });
 
@@ -97,13 +120,25 @@ trash.forEach((element) => {
 });
 
 const remove = (element) => {
-  if (element.classList.contains('hide')) {
+  if (element.classList.contains('line')) {
     task.removerTask(element.value - 1);
     todoList.removeChild(element.closest('li'));
     task.updateTask();
+  } else {
+    console.log(element);
   }
 };
 
 clearAll.addEventListener('click', () => {
   [...checkTask].filter(remove);
 });
+
+// clearAll.addEventListener('click', () => {
+//   checkTask.forEach((element) => {
+//     if (element.classList.contains('hide')) {
+//       task.removerTask(element.value - 1);
+//       todoList.removeChild(element.closest('li'));
+//       task.updateTask();
+//     }
+//   });
+// });
