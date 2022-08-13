@@ -16,7 +16,7 @@ const getTodo = () => {
         </label>
         <span class=" description">
           <span class="${todo.index} | desc">${todo.description}</span>
-          <input type="text" name="" id="${todo.index}" value="${todo.description}" />
+          <input type="text" name="" id="${todo.index}" value="${todo.description}" class="edit" />
         </span>
         <span class="task-edit">
           <i class="bi bi-three-dots-vertical"></i>
@@ -48,6 +48,7 @@ const edit = document.querySelectorAll('.bi-three-dots-vertical');
 task.tasks.forEach((task, index) => {
   if (task.completed) {
     checkTask.item(index).checked = true;
+    checkTask.item(index).classList.add('hide');
     checkTaskSpan.item(index).classList.add('line');
   }
 });
@@ -57,12 +58,12 @@ checkTask.forEach((task) => {
     if (e.target.checked) {
       status.updateStatus(e.target.value, false);
       e.target.checked = true;
-      checkTaskSpan.item(e.target.value).classList.remove('line');
+      // checkTaskSpan.item(e.target.value).classList.remove('line');
       window.location.reload();
     } else {
       status.updateStatus(e.target.value, true);
       e.target.checked = false;
-      checkTaskSpan.item(e.target.value).classList.add('line');
+      // checkTaskSpan.item(e.target.value).classList.add('line');
       window.location.reload();
     }
   });
@@ -120,12 +121,10 @@ trash.forEach((element) => {
 });
 
 const remove = (element) => {
-  if (element.classList.contains('line')) {
-    task.removerTask(element.value - 1);
+  if (element.classList.contains('hide')) {
+    task.removerTask(element.value);
     todoList.removeChild(element.closest('li'));
     task.updateTask();
-  } else {
-    console.log(element);
   }
 };
 

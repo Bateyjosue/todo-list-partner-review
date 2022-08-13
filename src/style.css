@@ -113,19 +113,20 @@ button.clear {
   justify-self:flex-start;
 }
 
-.description input, :focus {
+.description input {
   display: none;
   width:100%;
   height: 100%;
   z-index: 1;
   outline: none;
   border-color: transparent;
+  background: transparent;
 }
 
 .check-task {
   width: 1.3em;
   height: 1.3em;
-  background-color:   #d9b16660  ;
+  background-color:white ;
   border-radius: 0.1rem;
   vertical-align: middle;
   border: 1px solid rgb(122, 120, 120);
