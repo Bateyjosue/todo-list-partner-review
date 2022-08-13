@@ -84,7 +84,8 @@ body {
 }
 
 .hide {
-  visibility: none;
+  /* visibility: none; */
+  clear: both;
 }
 
 button.clear {
@@ -100,6 +101,10 @@ button.clear {
   color: white;
 }
 
+.bi-trash {
+  display: none;
+}
+
 .task-edit .bi-trash {
   cursor: pointer;
 }
@@ -110,12 +115,12 @@ button.clear {
 
 .description {
   cursor: pointer;
-  justify-self:flex-start;
+  justify-self: flex-start;
 }
 
 .description input {
   display: none;
-  width:100%;
+  width: 100%;
   height: 100%;
   z-index: 1;
   outline: none;
@@ -126,7 +131,7 @@ button.clear {
 .check-task {
   width: 1.3em;
   height: 1.3em;
-  background-color:white ;
+  background-color: white;
   border-radius: 0.1rem;
   vertical-align: middle;
   border: 1px solid rgb(122, 120, 120);
@@ -137,10 +142,6 @@ button.clear {
 }
 
 .check-task:checked {
-  background-color:  rgb(27, 140, 252);
+  background-color: rgb(27, 140, 252);
   border: 1px solid rgb(255, 255, 255);
-}
-
-.bi-trash {
-  display: none;
 }
