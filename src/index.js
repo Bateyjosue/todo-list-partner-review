@@ -1,7 +1,9 @@
 import './style.css';
 import Task from './task.js';
+import Status from './status.js';
 
 const task = new Task();
+const status = new Status();
 
 const todoList = document.querySelector('.todo-list');
 
@@ -10,12 +12,11 @@ const getTodo = () => {
     todoList.innerHTML += `
       <li>
         <label class="task">
-          <i class="bi bi-check"></i>
           <input type="checkbox" id="" name="" value="${todo.index}" class="check-task">
         </label>
         <span class=" description">
           <span class="${todo.index} | desc">${todo.description}</span>
-          <input type="text" name="" id="${todo.index}" value="${todo.description}" />
+          <input type="text" name="" id="${todo.index}" value="${todo.description}" class="edit" />
         </span>
         <span class="task-edit">
           <i class="bi bi-three-dots-vertical"></i>
@@ -27,21 +28,44 @@ const getTodo = () => {
 };
 
 getTodo();
-
 const checkTask = document.querySelectorAll('.check-task');
-const checkTaskSpan = document.querySelectorAll('.task span');
+const checkTaskSpan = document.querySelectorAll('.description span');
 const description = document.querySelectorAll('.description');
 const descriptionInput = document.querySelectorAll('.description input');
-const checkTaskIcon = document.querySelectorAll('.task i');
 const addTaskInput = document.querySelector('.add-task input');
-// const clearAll = document.querySelector('.clear');
+const clearAll = document.querySelector('.clear');
 const trash = document.querySelectorAll('.bi-trash');
+const edit = document.querySelectorAll('.bi-three-dots-vertical');
+
+[...edit].forEach((element, index) => {
+  element.addEventListener('click', (e) => {
+    e.target.parentNode.parentNode.style.backgroundColor = '#d9b16660';
+    e.target.style.display = 'none';
+    trash.item(index).style.display = 'block';
+  });
+});
+
+task.tasks.forEach((task, index) => {
+  if (task.completed) {
+    checkTask.item(index).checked = true;
+    checkTask.item(index).classList.add('hide');
+    checkTaskSpan.item(index).classList.add('line');
+  }
+});
 
 checkTask.forEach((task) => {
   task.addEventListener('click', (e) => {
-    checkTaskSpan.item(e.target.value - 1).classList.toggle('line');
-    e.target.classList.toggle('hide');
-    checkTaskIcon.item(e.target.value - 1).classList.toggle('visible');
+    if (e.target.checked) {
+      status.updateStatus(e.target.value, false);
+      e.target.checked = true;
+      // checkTaskSpan.item(e.target.value).classList.remove('line');
+      window.location.reload();
+    } else {
+      status.updateStatus(e.target.value, true);
+      e.target.checked = false;
+      // checkTaskSpan.item(e.target.value).classList.add('line');
+      window.location.reload();
+    }
   });
 });
 
@@ -72,7 +96,6 @@ addTaskInput.addEventListener('keypress', (e) => {
     todoList.innerHTML += `
       <li>
         <label class="task">
-          <i class="bi bi-check"></i>
           <input type="checkbox" id="" name="" value="" class="check-task">
           <span class="">${e.target.value}</span>
         </label>
@@ -83,6 +106,7 @@ addTaskInput.addEventListener('keypress', (e) => {
       </li>
     `;
     addTaskInput.value = '';
+    window.location.reload();
   }
 });
 
@@ -94,6 +118,18 @@ trash.forEach((element) => {
       todoList.removeChild(e.target.closest('li'));
     }
   });
+});
+
+const remove = (element) => {
+  if (element.classList.contains('hide')) {
+    task.removerTask(element.value);
+    todoList.removeChild(element.closest('li'));
+    task.updateTask();
+  }
+};
+
+clearAll.addEventListener('click', () => {
+  [...checkTask].filter(remove);
 });
 
 // clearAll.addEventListener('click', () => {

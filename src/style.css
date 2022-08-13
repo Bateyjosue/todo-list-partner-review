@@ -78,8 +78,14 @@ body {
   opacity: 0.6;
 }
 
+.no-line {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
 .hide {
-  visibility: hidden;
+  /* visibility: none; */
+  clear: both;
 }
 
 button.clear {
@@ -95,12 +101,8 @@ button.clear {
   color: white;
 }
 
-.task .bi-check {
-  color: rgb(27, 140, 252);
-  font-weight: 900;
-  font-size: 1.6rem;
-  margin-right: -1.4rem;
-  visibility: visible;
+.bi-trash {
+  display: none;
 }
 
 .task-edit .bi-trash {
@@ -113,12 +115,33 @@ button.clear {
 
 .description {
   cursor: pointer;
+  justify-self: flex-start;
 }
 
 .description input {
   display: none;
+  width: 100%;
   height: 100%;
   z-index: 1;
-  border: none;
   outline: none;
+  border-color: transparent;
+  background: transparent;
+}
+
+.check-task {
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 0.1rem;
+  vertical-align: middle;
+  border: 1px solid rgb(122, 120, 120);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.check-task:checked {
+  background-color: rgb(27, 140, 252);
+  border: 1px solid rgb(255, 255, 255);
 }

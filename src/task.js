@@ -16,9 +16,8 @@ export default class Task {
 
   removerTask = (index) => {
     this.tasks.splice(index, 1);
-    this.tasks = this.tasks.map((task, index) => ({
-      ...task, index,
-    }));
+    if (index === -1) return;
+    this.tasks = this.tasks.map((task, index) => ({ ...task, index }));
   };
 
   editTask = (index, value) => {
