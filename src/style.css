@@ -1,0 +1,150 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+}
+
+:root {
+  --border-color: rgba(109, 105, 105, 0.767);
+}
+
+body {
+  background: rgba(192, 187, 187, 0.438);
+}
+
+.todo-list-container {
+  background: #fff;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10rem auto;
+}
+
+.todo-list-container > * {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.todo-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.add-task {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  opacity: 0.6;
+}
+
+.add-task input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 1rem;
+}
+
+.todo-list {
+  list-style-type: none;
+  line-height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.todo-list li {
+  list-style-type: none;
+  line-height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 1rem;
+}
+
+.todo-list li span {
+  padding-left: 0.4rem;
+}
+
+.line {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.no-line {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.hide {
+  clear: both;
+}
+
+button.clear {
+  border: none;
+  margin-top: -1rem;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+
+.clear:focus {
+  background: rgb(27, 140, 252);
+  color: white;
+}
+
+.bi-trash {
+  display: none;
+}
+
+.task-edit .bi-trash {
+  cursor: pointer;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.description {
+  cursor: pointer;
+  justify-self: flex-start;
+}
+
+.description input {
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  outline: none;
+  border-color: transparent;
+  background: transparent;
+}
+
+.check-task {
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 0.1rem;
+  vertical-align: middle;
+  border: 1px solid var(--border-color);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.check-task:checked {
+  background-color: rgb(27, 140, 252);
+  border: 1px solid rgb(255, 255, 255);
+}
