@@ -7,27 +7,24 @@ const status = new Status();
 
 const todoList = document.querySelector('.todo-list');
 
-const getTodo = () => {
-  task.tasks.forEach((todo) => {
-    todoList.innerHTML += `
-      <li>
-        <label class="task">
-          <input type="checkbox" id="" name="" value="${todo.index}" class="check-task">
-        </label>
-        <span class=" description">
-          <span class="${todo.index} | desc">${todo.description}</span>
-          <input type="text" name="" id="${todo.index}" value="${todo.description}" class="edit" />
-        </span>
-        <span class="task-edit">
-          <i class="bi bi-three-dots-vertical"></i>
-          <i class="bi bi-trash" id="${todo.index}"></i>
-        </span>
-      </li>
-    `;
-  });
-};
+task.tasks.forEach((todo) => {
+  todoList.innerHTML += `
+    <li>
+      <label class="task">
+        <input type="checkbox" id="" name="" value="${todo.index}" class="check-task">
+      </label>
+      <span class=" description">
+        <span class="${todo.index} | desc">${todo.description}</span>
+        <input type="text" name="" id="${todo.index}" value="${todo.description}" class="edit" />
+      </span>
+      <span class="task-edit">
+        <i class="bi bi-three-dots-vertical"></i>
+        <i class="bi bi-trash" id="${todo.index}"></i>
+      </span>
+    </li>
+  `;
+});
 
-getTodo();
 const checkTask = document.querySelectorAll('.check-task');
 const checkTaskSpan = document.querySelectorAll('.description span');
 const description = document.querySelectorAll('.description');
@@ -58,12 +55,10 @@ checkTask.forEach((task) => {
     if (e.target.checked) {
       status.updateStatus(e.target.value, false);
       e.target.checked = true;
-      // checkTaskSpan.item(e.target.value).classList.remove('line');
       window.location.reload();
     } else {
       status.updateStatus(e.target.value, true);
       e.target.checked = false;
-      // checkTaskSpan.item(e.target.value).classList.add('line');
       window.location.reload();
     }
   });
@@ -131,13 +126,3 @@ const remove = (element) => {
 clearAll.addEventListener('click', () => {
   [...checkTask].filter(remove);
 });
-
-// clearAll.addEventListener('click', () => {
-//   checkTask.forEach((element) => {
-//     if (element.classList.contains('hide')) {
-//       task.removerTask(element.value - 1);
-//       todoList.removeChild(element.closest('li'));
-//       task.updateTask();
-//     }
-//   });
-// });
